@@ -1,11 +1,9 @@
 package com.example;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
 
-public class Server{
+public class Server extends Thread{
     Socket client;
 
     BufferedReader inDalClient;
@@ -21,7 +19,7 @@ public class Server{
             outVersoClient  = new DataOutputStream( client.getOutputStream() );
 
             do{
-                
+
             } while(true);
         }
 
