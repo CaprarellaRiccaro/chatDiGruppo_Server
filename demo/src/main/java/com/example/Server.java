@@ -1,7 +1,9 @@
 package com.example;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.Socket;
 
 public class Server extends Thread{
     Socket client;
@@ -15,11 +17,14 @@ public class Server extends Thread{
 
     public void run(){
         try{
-            inDalClient = new BufferedReader( new InputStreamReader( client.inDalClient ) );
+            inDalClient = new BufferedReader( new InputStreamReader( client.getInputStream() ) );
             outVersoClient  = new DataOutputStream( client.getOutputStream() );
 
             do{
-
+                String st = inDalClient.readLine();
+                System.out.println(st);
+                String stringaClient = "messaggio ricevuto";
+  
             } while(true);
         }
 
