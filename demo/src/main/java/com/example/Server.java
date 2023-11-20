@@ -23,28 +23,27 @@ public class Server extends Thread{
 
     public void run(){
         try{
+            //Inizializzazione delle variabili
             inDalClient = new BufferedReader( new InputStreamReader( client.getInputStream() ) );
             outVersoClient  = new DataOutputStream( client.getOutputStream() );
             boolean condizioneUscita = false;
 
 
-
+            //Salvataggio degli username dei Client
             st = inDalClient.readLine();
             System.out.println(st);
-            nomeThread.add(st);
-
             for(int i = 0; i < nomeThread.size(); i++){
                 System.out.println(nomeThread.get(i));
             }
-            
+
             do{
-                 st = inDalClient.readLine();
+                //Lettura del messaggio ricevuto dal Client
+                st = inDalClient.readLine();
                 System.out.println(st);
                 
+                //Se viene ricevuta la Stringa 'EXIT' il programma viene chiuso
                 outVersoClient.writeBytes(st);
-                if (st.equals("EXIT")){
-                    condizioneUscita = true;
-                }
+                
             } while(!condizioneUscita);
         }
 
