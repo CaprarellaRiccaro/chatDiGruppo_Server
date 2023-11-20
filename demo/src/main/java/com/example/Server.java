@@ -4,12 +4,18 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Server extends Thread{
     Socket client;
 
     BufferedReader inDalClient;
     DataOutputStream outVersoClient;
+
+    String st;
+
+    ArrayList nomeThread = new ArrayList<String>();
+
 
     public Server (Socket client){
         this.client = client;
@@ -19,13 +25,27 @@ public class Server extends Thread{
         try{
             inDalClient = new BufferedReader( new InputStreamReader( client.getInputStream() ) );
             outVersoClient  = new DataOutputStream( client.getOutputStream() );
+            boolean condizioneUscita = false;
 
+
+
+            st = inDalClient.readLine();
+            System.out.println(st);
+            nomeThread.add(st);
+
+            for(int i = 0; i < nomeThread.size(); i++){
+                System.out.println(nomeThread.get(i));
+            }
+            
             do{
-                String st = inDalClient.readLine();
+                 st = inDalClient.readLine();
                 System.out.println(st);
-                String stringaClient = "messaggio ricevuto";
-  
-            } while(true);
+                
+                outVersoClient.writeBytes(st);
+                if (st.equals("EXIT")){
+                    condizioneUscita = true;
+                }
+            } while(!condizioneUscita);
         }
 
         catch ( Exception e ){
